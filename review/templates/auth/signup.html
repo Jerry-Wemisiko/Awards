@@ -12,12 +12,11 @@
                 {% endfor %}
             </div>
             {% endif %}
-        
-
+    
         </div> 
 
     <div class="col-sm-4 col-md-5">
-        <div class="card">
+        <div class="card" style="border-radius: 5px;">
             <div class="card-body">
                 <div class="panel-heading">
                     <h3 class="text-center" style="font-family: 'Pacifico',cursive; margin-bottom: 15px;">Awards Sign Up</h3>
@@ -45,11 +44,19 @@
 
                 </form>
 
+                <div class="card px-3 mt-2 p-3 rounded-0 ">
+                    <div class= "text-center"style="border-radius: 3px">
+                     <small><p><strong> <em>Have an account? <a href="{% url 'signin' %}">Login</a></em> </strong></p></small> 
+                    </div>  
+                  </div> 
+
 
             </div>
         </div>
 
     </div>
+    <!-- Empty div -->
+    <div class="col-md-4"></div>
 </div>
 </div>
 
