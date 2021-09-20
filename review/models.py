@@ -1,6 +1,8 @@
 from django.db import models
+from django.db.models.fields import URLField
 from cloudinary.models import CloudinaryField
-from django.contrib.auth.models import BaseUserManager,AbstractBaseUser
+import datetime as dt
+from django.contrib.auth.models import User, BaseUserManager,AbstractBaseUser
 
 # Create your models here.
 class MyAccountManager(BaseUserManager):
@@ -61,6 +63,7 @@ class Profile(models.Model):
     username = models.CharField(max_length=100,blank=True)
     email = models.EmailField(max_length=150)
     photo = CloudinaryField('prof',null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     signup_confirmation = models.BooleanField(default=False)
 
     def __str__(self) ->str:
@@ -73,4 +76,39 @@ class Profile(models.Model):
     def search_profile(cls,uname):
         return cls.objects.filter(user__username__icontains=uname).all()
 
+class Project(models.Model):
+    user = models.ForeignKey('Users',on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    url = URLField(max_length=255)
+    description = models.TextField()
+    upload_date = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self) -> str:
+        return self.title
+
+    class Meta:
+        ordering = ['upload_date']
+
+    def save_project(self):
+        return self.save()
+
+    @classmethod
+    def get_all_projects(cls):
+      projects=cls.objects.all()
+      return projects 
+
+
+    @classmethod
+    def delete_project(cls,id):
+      cls.objects.filter(id=id).delete()
+
+
+    @classmethod
+    def search_project(cls,proj_title):
+      projects=cls.objects.filter(title__icontains=proj_title)
+      return projects
+
+
+
+
+    

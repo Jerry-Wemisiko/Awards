@@ -2,7 +2,7 @@ serve:
 	python3 manage.py runserver
 
 migrations:
-	python3 manage.py makemigrations gram
+	python3 manage.py makemigrations review
 
 
 migrate:
