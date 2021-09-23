@@ -75,7 +75,7 @@ class Review(models.Model):
     content = models.IntegerField(choices=CHOICES,default=0,blank=False)
     average =  models.DecimalField(default=1,blank=False,decimal_places=2,max_digits=100)
     project = models.ForeignKey(Project,null=True,on_delete=models.CASCADE)
-    user = models.ForeignKey(User,null=True,blank=True,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user
