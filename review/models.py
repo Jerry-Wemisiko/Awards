@@ -61,6 +61,7 @@ class Users(AbstractBaseUser):
 class Profile(models.Model):
     user = models.OneToOneField('Users',on_delete = models.CASCADE)
     username = models.CharField(max_length=100,blank=True)
+    bio = models.TextField()
     email = models.EmailField(max_length=150)
     photo = CloudinaryField('prof',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -82,6 +83,7 @@ class Project(models.Model):
     url = URLField(max_length=255)
     description = models.TextField()
     upload_date = models.DateTimeField(auto_now_add=True)
+    profile = models.ForeignKey(Profile,null=True,on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.title
@@ -108,7 +110,19 @@ class Project(models.Model):
       projects=cls.objects.filter(title__icontains=proj_title)
       return projects
 
-
+class Review(models.Model):
+    CHOICES = (
+        (1,'1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '5'),
+        (6, '6'),
+        (7, '7'),
+        (8, '8'),
+        (9, '9'),
+        (10, '10'),
+    )
 
 
     
