@@ -95,10 +95,9 @@ class Project(models.Model):
         return self.save()
 
     @classmethod
-    def get_all_projects(cls):
-      projects=cls.objects.all()
-      return projects 
-
+    def get_project_by_id(cls,id):
+        project = Project.objects.filter(id =id)
+        return project
 
     @classmethod
     def delete_project(cls,id):
@@ -123,6 +122,20 @@ class Review(models.Model):
         (9, '9'),
         (10, '10'),
     )
+    design = models.IntegerField(choices=CHOICES,default=0,blank=False)
+    usability = models.IntegerField(choices=CHOICES,default=0,blank=False)
+    content = models.IntegerField(choices=CHOICES,default=0,blank=False)
+    average =  models.DecimalField(default=1,blank=False,decimal_places=2,max_digits=100)
+    project = models.ForeignKey(Project,null=True,on_delete=models.CASCADE)
+    user = models.ForeignKey('Users',null=True,blank=True,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.user
+
+    def save_review(self):
+        self.save()
+
+    def delete_review(self):
+        self.delete()
 
     

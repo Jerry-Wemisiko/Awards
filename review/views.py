@@ -2,9 +2,9 @@ from threading import current_thread
 from django.contrib import auth
 from review.forms import SignUpForm,UserProfileForm,ProjectForm
 from django.core.checks import messages
-from review.models import Profile,Project,Users
+from review.models import Profile,Project, Review,Users
 from django.contrib.auth import authenticate, login,logout
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -51,9 +51,20 @@ def new_project(request):
             return redirect('homepage')
     else:
         form = ProjectForm()
-    return render(request, 'project.html',{"form":form})
+    return render(request, 'new_project.html',{"form":form})
 
 @login_required(login_url='/accounts/login')
 def project(request):
     project = Project.objects.get.all()
-    reviews = Rev
+    reviews = Review.objects.get.all()
+
+    return render(request,'project.html',{'project':project,'reviews':reviews})
+
+@login_required(login_url='/accounts/login/')
+def project_review(request, proj_id):
+    prj = Project.get_project_by_id(id=proj_id)
+    project = get_object_or_404(Project,pk=proj_id)
+    current_user = request.user
+
+    if request.method == 'POST':
+        for
