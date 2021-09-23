@@ -1,20 +1,24 @@
+import review
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from threading import current_thread
 from django.contrib import auth
 from review.forms import ReviewForm, SignUpForm,UserProfileForm,ProjectForm
 from django.core.checks import messages
-from review.models import Profile,Project, Review,Users
+from review.models import Profile,Project, Review,User
 from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def homepage(request):
+
     title = 'Review'
     profile = Profile.objects.all()
     projects = Project.objects.all()
+    reviews = Review.objects.all()
 
+    return render(request,'index.html',{'profile':profile,'projects':projects,'title':title,'review': reviews})
 def SignUp(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -56,9 +60,9 @@ def new_project(request):
     return render(request, 'new_project.html',{"form":form})
 
 @login_required(login_url='/accounts/login')
-def project(request):
-    project = Project.objects.get.all()
-    reviews = Review.objects.get.all()
+def project(request,id):
+    project = Project.objects.get(id=id)
+    reviews = Review.objects.get(id=id)
 
     return render(request,'project.html',{'project':project,'reviews':reviews})
 
