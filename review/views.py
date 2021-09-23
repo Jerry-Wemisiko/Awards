@@ -1,6 +1,8 @@
+from django.http.response import HttpResponseRedirect
+from django.urls import reverse
 from threading import current_thread
 from django.contrib import auth
-from review.forms import SignUpForm,UserProfileForm,ProjectForm
+from review.forms import ReviewForm, SignUpForm,UserProfileForm,ProjectForm
 from django.core.checks import messages
 from review.models import Profile,Project, Review,Users
 from django.contrib.auth import authenticate, login,logout
@@ -67,4 +69,27 @@ def project_review(request, proj_id):
     current_user = request.user
 
     if request.method == 'POST':
-        for
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            design = form.cleaned_data['design']
+            usability = form.cleaned_data['usability']
+            content = form.cleaned_data['content']
+            review = Review()
+            review.user = current_user
+            review.project = project
+            review.content = content
+            review.usability = usability
+            review.design = design
+            review.average = (review.content + review.usability + review.design)/3
+            review.save()
+            return HttpResponseRedirect(reverse('projectinfo', args=(project,)))
+
+    else:
+        form = ReviewForm()
+    return render(request,'review.html',{'user':current_user,'form':form,'project':prj})
+
+
+
+
+
