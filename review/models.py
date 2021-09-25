@@ -85,5 +85,3 @@ class Review(models.Model):
 
     def delete_review(self):
         self.delete()
-
-    

@@ -19,6 +19,7 @@ def homepage(request):
     reviews = Review.objects.all()
 
     return render(request,'index.html',{'profile':profile,'projects':projects,'title':title,'review': reviews})
+
 def SignUp(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
