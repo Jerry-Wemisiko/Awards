@@ -35,9 +35,9 @@ def SignUp(request):
             login(request, user)
             return redirect('login')
 
-        else:
-            form = SignUpForm()
-        return render(request,'auth/signup.html',{'form': form})
+    else:
+        form = SignUpForm()
+    return render(request,'auth/signup.html',{'form': form})
         
 @login_required(login_url='/accounts/login/')    
 def profile(request):

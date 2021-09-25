@@ -1,18 +1,20 @@
-from django.urls import path
+from django.conf.urls import url
 from .import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('home',views.homepage,name='homepage'),
-    path('',views.SignUp,name='signup'),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/',auth_views.LogoutView.as_view(), name='logout'),
-    path('profile/', views.profile, name='profile'),
-    path('project/',views.new_project,name='new_project'),
-    path('projectinfo/',views.project, name='projectinfo'),
-    path('review/', views.project_review,name='projectreview'),
+    url('home',views.homepage,name='homepage'),
+    url('^$',views.SignUp,name='signup'),
+    url('login/', auth_views.LoginView.as_view(), name='login'),
+    url('logout/',auth_views.LogoutView.as_view(), name='logout'),
+    url('profile/', views.profile, name='profile'),
+    url('post_project/',views.new_project,name='new_project'),
+    url('^projectinfo/(?P<id>\d+)',views.project, name='projectinfo'),
+    url('^review/(?P<proj_id>\d+)', views.project_review,name='projectreview'),
+     url('api/projects',views.ProjectList.as_view(),name='projectapi'),
+    url('api/profiles',views.ProfileList.as_view(),name='profileapi'),
 ]
 
 if settings.DEBUG:
