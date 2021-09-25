@@ -1,4 +1,6 @@
-import review
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectSerializer
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
 from threading import current_thread
@@ -9,6 +11,8 @@ from review.models import Profile,Project, Review,User
 from django.contrib.auth import authenticate, login,logout
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
+
+from review import serializer
 
 # Create your views here.
 def homepage(request):
@@ -95,6 +99,21 @@ def project_review(request, proj_id):
     return render(request,'review.html',{'user':current_user,'form':form,'project':prj})
 
 
+class ProjectList(APIView):
+    def get(self,request,format= None):
+        all_projects = Project.objects.all()
+        serializer = ProjectSerializer(all_projects, many=True)
+        return Response(serializer.data)
+
+class ProfileList(APIView):
+   
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializer = ProfileSerializer(all_profiles, many=True)
+        return Response(serializer.data)
+   
+    
+    
 
 
 
