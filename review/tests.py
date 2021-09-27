@@ -1,26 +1,13 @@
-from django.test import TestCase
+from django.test import TestCase,TransactionTestCase
 from django.contrib import auth
 from .models import Profile, User,Project,Review
 
-# Create your tests here.
-
-
-# class AuthTestCase(TestCase):
-#     def setUp(self):
-#         self.user = User.objects.create_user('test@dom.com', 'test@dom.com', 'pass')
-#         self.user.is_staff = True
-#         self.user.is_superuser = True
-#         self.user.is_active = True
-#         self.user.save()
-
-#     def testLogin(self):
-#         self.client.login(username='test@dom.com', password='pass')
-
+# Create your tests here
 class ProfileTest(TestCase):
     def setUp(self):
         self.user = User(username='jerry')
         self.user.save()
-        self.profile = Profile(photo='img',bio='This is my bio',email='test@g.com',created_at='2021-09-27 13:19:03+03',user=self.user)
+        self.profile = Profile(photo='img',bio='This is my bio',email='test@g.com',user=self.user)
         self.profile.save_profile()
 
     def tearDown(self):
@@ -29,21 +16,21 @@ class ProfileTest(TestCase):
     def test_instance(self):
         self.assertTrue(isinstance(self.profile,Profile))
 
-    def test_save_method(self):
+    def test_save_profile(self):
         self.profile.save_profile()
         profiles = Profile.objects.all()
         self.assertTrue(len(profiles) > 0)
 
 
-    def test_delete_method(self):
+    def test_delete_profile(self):
         self.profile.save_profile()
         self.profile.delete_profile()
         profile = Profile.objects.all()
         self.assertTrue(len(profile) == 0)       
 
-class ProjectTest(TestCase):
+class ProjectTest(TransactionTestCase):
     def setUp(self):
-        self.project = Project(title ='ProjectIGI',description="projectigi things",url="http://www.awards.net")
+        self.project = Project(title ='ProjectIGI',url='https://localhost:8000',description="projectigi things")
 
     def tearDown(self):
         Project.objects.all().delete()
@@ -51,12 +38,12 @@ class ProjectTest(TestCase):
     def test_instance(self):
         self.assertTrue(isinstance(self.project, Project))
 
-    def test_save_method(self):
+    def test_save_project(self):
         self.project.save_project()
         projects = Project.objects.all()
         self.assertTrue(len(projects)>0)
 
-    def test_delete_method(self):
+    def test_delete_project(self):
         self.project.save_project()
         projects = Project.objects.all()
         self.project.delete_project()

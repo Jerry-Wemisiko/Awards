@@ -11,7 +11,7 @@ class Profile(models.Model):
     bio = models.TextField()
     email = models.EmailField(max_length=150)
     photo = CloudinaryField('prof',null=True,blank=True)
-    signup_confirmation = models.BooleanField(default=False)
+
 
     def __str__(self) ->str:
         return self.user.username
@@ -27,11 +27,10 @@ class Profile(models.Model):
         return cls.objects.filter(user__username__icontains=uname).all()
 
 class Project(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,null=True,on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     url = URLField(max_length=255)
     description = models.TextField()
-    # upload_date = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile,null=True,on_delete=models.CASCADE)
 
     def __str__(self) -> str:
