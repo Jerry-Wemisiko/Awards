@@ -1,18 +1,16 @@
 from django.db import models
 from django.db.models.fields import URLField
 from cloudinary.models import CloudinaryField
-import datetime as dt
 from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Profile(models.Model):
-    user = models.OneToOneField(User,on_delete = models.CASCADE, related_name="profile",primary_key=True)
+    user=models.OneToOneField(User,on_delete = models.CASCADE, related_name='profile',primary_key=True)
     username = models.CharField(max_length=100,blank=True)
     bio = models.TextField()
     email = models.EmailField(max_length=150)
     photo = CloudinaryField('prof',null=True,blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
     signup_confirmation = models.BooleanField(default=False)
 
     def __str__(self) ->str:
@@ -23,7 +21,7 @@ class Profile(models.Model):
 
     def delete_profile(self):
         self.delete()
-        
+
     @classmethod
     def search_profile(cls,uname):
         return cls.objects.filter(user__username__icontains=uname).all()
@@ -33,27 +31,22 @@ class Project(models.Model):
     title = models.CharField(max_length=50)
     url = URLField(max_length=255)
     description = models.TextField()
-    upload_date = models.DateTimeField(auto_now_add=True)
+    # upload_date = models.DateTimeField(auto_now_add=True)
     profile = models.ForeignKey(Profile,null=True,on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.title
 
-    class Meta:
-        ordering = ['upload_date']
-
     def save_project(self):
-        return self.save()
+        self.save()
+
+    def delete_project(self):
+        self.delete()
 
     @classmethod
     def get_project_by_id(cls,id):
         project = Project.objects.filter(id =id)
         return project
-
-    @classmethod
-    def delete_project(cls,id):
-      cls.objects.filter(id=id).delete()
-
 
     @classmethod
     def search_project(cls,proj_title):
