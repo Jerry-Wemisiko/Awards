@@ -92,8 +92,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': environ['DB_NAME'],
-            'USER': environ.get['DB_USER'],
-            'PASSWORD': environ.get['DB_PASSWORD']
+            'USER': environ['DB_USER'],
+            'PASSWORD': environ['DB_PASSWORD']
         }
     }
 
@@ -136,12 +136,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
-# STATICFILES_DIRS =[
+STATICFILES_DIRS =[
 
-#     os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static')
 
-# ]
-
+]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -160,3 +160,4 @@ cloudinary.config(
 )
 APPEND_SLASH = False
 
+django_heroku.settings(locals())
