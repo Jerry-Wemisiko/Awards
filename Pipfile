@@ -11,6 +11,7 @@ djangorestframework = "*"
 bootstrap4 = "*"
 django-heroku = "*"
 whitenoise = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
