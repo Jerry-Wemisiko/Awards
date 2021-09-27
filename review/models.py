@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Profile(models.Model):
-    user = models.OneToOneField(User,on_delete = models.CASCADE)
+    user = models.OneToOneField(User,on_delete = models.CASCADE, related_name="profile",primary_key=True)
     username = models.CharField(max_length=100,blank=True)
     bio = models.TextField()
     email = models.EmailField(max_length=150)
@@ -16,11 +16,14 @@ class Profile(models.Model):
     signup_confirmation = models.BooleanField(default=False)
 
     def __str__(self) ->str:
-        return f'{self.user.username}'
+        return self.user.username
     
     def save_profile(self):
-        self.user.save()
+        self.save()
 
+    def delete_profile(self):
+        self.delete()
+        
     @classmethod
     def search_profile(cls,uname):
         return cls.objects.filter(user__username__icontains=uname).all()
