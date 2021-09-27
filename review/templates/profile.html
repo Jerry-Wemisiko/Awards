@@ -1,4 +1,22 @@
 {% extends 'base.html' %}
 {%block content%}
-
+<div class="container">
+    <div class="col-sm-6 m-auto">
+        <div class="content-section">
+            <div class="profile">
+                <div class="col-sm-4">
+                    <div id="profpic " class="rounded-circle">
+                        <img src="{{user.photo.url}}" alt="" srcset="">
+                    </div>
+                </div>
+                <div class="profile-details">
+                    <h2>{{user.username}}</h2>
+                    <p>{{user.bio}}</p>
+                    <hr>
+                    <a href=""><button class="btn btn-primary" >Edit Profile</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

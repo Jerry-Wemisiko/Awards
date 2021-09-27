@@ -3,12 +3,9 @@ from rest_framework.views import APIView
 from .serializer import ProfileSerializer,ProjectSerializer
 from django.http.response import HttpResponseRedirect
 from django.urls import reverse
-from threading import current_thread
-from django.contrib import auth
 from review.forms import ReviewForm, SignUpForm,UserProfileForm,ProjectForm
-from django.core.checks import messages
 from review.models import Profile,Project, Review,User
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import authenticate, login
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 
