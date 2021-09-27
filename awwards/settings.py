@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import cloudinary
+import django_heroku
+import dj_database_url as db_url
 import os
 from os import environ
 

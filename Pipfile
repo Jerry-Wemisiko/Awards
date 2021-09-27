@@ -9,6 +9,7 @@ cloudinary = "*"
 psycopg2-binary = "*"
 djangorestframework = "*"
 bootstrap4 = "*"
+django-heroku = "*"
 
 [dev-packages]
 
