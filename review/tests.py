@@ -56,7 +56,7 @@ class ReviewTest(TestCase):
     def setUp(self):
         self.user = User(username='jerry')
         self.user.save()
-        self.project = Project(title ='ProjectIGI',description="projectigi things",url='https://localhost:8000')
+        self.project = Project(title ='ProjectIGI',description="projectigi things",url="http://www.awards.net")
         self.project.save_project()
 
 

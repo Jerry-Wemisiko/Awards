@@ -13,7 +13,7 @@ urlpatterns = [
     url('post_project/',views.new_project,name='post_project'),
     url('^projectinfo/(?P<id>\d+)',views.project, name='projectinfo'),
     url('^review/(?P<proj_id>\d+)', views.project_review,name='projectreview'),
-     url('api/projects',views.ProjectList.as_view(),name='projectapi'),
+    url('api/projects',views.ProjectList.as_view(),name='projectapi'),
     url('api/profiles',views.ProfileList.as_view(),name='profileapi'),
 ]
 

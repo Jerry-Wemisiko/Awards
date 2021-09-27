@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,20 +14,31 @@
     {% endif %}
 
 </head>
+<style>
+    .home{
+        margin-top: 20px;
+        background-image: url(static/img/irena-carpaccio-vp7P2QHqrsE-unsplash.jpg);
+        background-size: cover;
+    }
+    .review{
+        border:solid 3px  teal;
+        border-radius: 5px;
+    }
+</style>
 <body>
-    <div class="container">
+    <div class="container home">
         <div class="row">
           {% for project in projects %}
-            <div class="col-sm-12">
-                <div class="card">
+            <div class="col-sm-12 col-md-5 col-lg-4">
+                <div class="card review">
                     <div class="card-body">
-                        <h2 class="card-title">{{project.title}}</h2>
-                        <a href="{% url 'projectinfo' %}">
+                        <h2 style="font-family: cursive;" class="card-title text-center">{{project.title}}</h2>
+                        <a  style="text-decoration: none;" href="{% url 'projectinfo' id=project.id %}">
                             <img src="{{project.photo.url}}" alt="" srcset="">
-                            <div class="py-2">
+                            <div class="py-2 text-center">
                                 
-                                <small>Author :{{project.user}} uploaded at {{project.upload_date}}</small>
-                                <a href="{% url 'projectinfo' %}">Review Project</a>
+                                <p>Author :{{project.user}}</p><hr>
+                                <a style="text-align: center; font-family: cursive; color: #010101;height: max-content;width: max-content;background-color: teal;border-radius: 5px;padding: 3px;" href="{% url 'projectinfo' id=project.id %}">REVIEW</a>
                             </div>
                         </a>
 
